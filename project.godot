@@ -20,6 +20,10 @@ config/icon="res://icon.svg"
 
 buses/default_bus_layout="uid://byf88ejok6w3d"
 
+[autoload]
+
+PhantomCameraManager="*uid://duq6jhf6unyis"
+
 [display]
 
 window/stretch/mode="canvas_items"
@@ -27,7 +31,7 @@ window/stretch/aspect="expand"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/gdfxr/plugin.cfg", "res://addons/godot_super-wakatime/plugin.cfg")
+enabled=PackedStringArray("res://addons/gdfxr/plugin.cfg", "res://addons/godot_super-wakatime/plugin.cfg", "res://addons/phantom_camera/plugin.cfg")
 
 [input]
 
@@ -69,5 +73,3 @@ interact={
 [rendering]
 
 rendering_device/driver.windows="d3d12"
-renderer/rendering_method="gl_compatibility"
-renderer/rendering_method.mobile="gl_compatibility"
