@@ -57,7 +57,7 @@ const DAYTIME_COLOURS: Dictionary[DAYTIMES, Color] = {
 @export_group("Presentation")
 @export var level_name: String = ""
 @export var level_description: String = ""
-@export var time_of_day: DAYTIMES:
+@export var time_of_day: DAYTIMES = DAYTIMES.MORNING:
 	set(value):
 		if time_of_day != value:
 			time_of_day = value
@@ -71,8 +71,13 @@ const DAYTIME_COLOURS: Dictionary[DAYTIMES, Color] = {
 @export var double_jumps: int = 0
 @export var screen_passing_allowed: bool = false
 @export var player_movement_speed: float
+@export var player_acceleration_speed: float
 @export var player_deacceleration_speed: float
+@export var player_coyote_time: float
+@export var player_jump_buffer_time: float
 @export var player_jump_velocity: float
+@export var player_double_jump_velocity: float
+@export var player_jump_cutoff: float
 @export var death_to_water: bool = false
 
 var _player_set_up: bool = false
@@ -97,8 +102,13 @@ func _setup_player() -> void:
 	player.can_jump = jumping_allowed
 	player.extra_jumps = double_jumps
 	if player_movement_speed: player.movement_speed = player_movement_speed
+	if player_acceleration_speed: player.acceleration_speed = player_acceleration_speed
 	if player_deacceleration_speed: player.deacceleration_speed = player_deacceleration_speed
+	if player_coyote_time: player.coyote_time = player_coyote_time
+	if player_jump_buffer_time: player.jump_buffer_time = player_jump_buffer_time
 	if player_jump_velocity: player.jump_velocity = player_jump_velocity
+	if player_double_jump_velocity: player.double_jump_velocity = player_double_jump_velocity
+	if player_jump_cutoff: player.variable_jump_cutoff = player_jump_cutoff
 	if player_camera and not _player_camera_set_up: _setup_player_camera()
 	player.active = true
 	_player_set_up = true

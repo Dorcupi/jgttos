@@ -824,7 +824,6 @@ level_bounding_box = NodePath("OnScreenDetector/LevelBoundingBox")
 on_screen_detector = NodePath("OnScreenDetector")
 reachable_tilemap_layers = [NodePath("MainLayer"), NodePath("BehindPlayerLayer"), NodePath("InFrontOfPlayerLayer")]
 day_modulate = NodePath("TimeOfDayShader")
-time_of_day = 1
 screen_passing_allowed = true
 death_to_water = true
 metadata/_custom_type_script = "uid://c8cjy6055kcva"
@@ -903,15 +902,15 @@ position = Vector2(-396, 36)
 gizmo_extents = 36.0
 
 [node name="BorderLeft" type="StaticBody2D" parent="." unique_id=346556548]
+position = Vector2(-648, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BorderLeft" unique_id=746501565]
-position = Vector2(-648, 0)
 shape = SubResource("WorldBoundaryShape2D_g4v7s")
 
 [node name="BorderRight" type="StaticBody2D" parent="." unique_id=184830599]
+position = Vector2(1080, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BorderRight" unique_id=117081559]
-position = Vector2(1080, 0)
 shape = SubResource("WorldBoundaryShape2D_sk5k4")
 
 [node name="TimeOfDayShader" type="CanvasModulate" parent="." unique_id=819204451]
