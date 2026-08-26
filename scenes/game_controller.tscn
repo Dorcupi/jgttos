@@ -1,6 +1,61 @@
 [gd_scene format=3 uid="uid://bsix1apl8x7k6"]
 
 [ext_resource type="Script" uid="uid://dasfhdjecxx83" path="res://scripts/game_controller.gd" id="1_vq0e2"]
+[ext_resource type="Shader" uid="uid://dmgb2nvdevuul" path="res://shaders/universaltransition.gdshader" id="2_vc4nx"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_g4v7s"]
+shader = ExtResource("2_vc4nx")
+shader_parameter/use_sprite_alpha = true
+shader_parameter/use_transition_texture = false
+shader_parameter/transition_type = 0
+shader_parameter/position = Vector2(0, 0)
+shader_parameter/invert = false
+shader_parameter/grid_size = Vector2(0, 0)
+shader_parameter/rotation_angle = 0.0
+shader_parameter/global_x_mirror = false
+shader_parameter/global_y_mirror = false
+shader_parameter/local_x_mirror = false
+shader_parameter/local_y_mirror = false
+shader_parameter/stagger = Vector2(0, 0)
+shader_parameter/cumulative_stagger_flip = false
+shader_parameter/cumulative_stagger = Vector2(0, 0)
+shader_parameter/stagger_frequency = Vector2i(2, 2)
+shader_parameter/flip_frequency = Vector2i(1, 1)
+shader_parameter/basic_feather = 1.0
+shader_parameter/use_mask_size = false
+shader_parameter/mask_size = Vector2(100, 100)
+shader_parameter/edges = 6
+shader_parameter/shape_feather = 0.1
+shader_parameter/sectors = 1
+shader_parameter/clock_feather = 0.0
+shader_parameter/progress_bias = Vector2(0, 0)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vc4nx"]
+shader = ExtResource("2_vc4nx")
+shader_parameter/use_sprite_alpha = true
+shader_parameter/use_transition_texture = false
+shader_parameter/transition_type = 0
+shader_parameter/position = Vector2(0.5, 0.5)
+shader_parameter/invert = false
+shader_parameter/grid_size = Vector2(0, 5)
+shader_parameter/rotation_angle = 0.0
+shader_parameter/global_x_mirror = false
+shader_parameter/global_y_mirror = false
+shader_parameter/local_x_mirror = false
+shader_parameter/local_y_mirror = false
+shader_parameter/stagger = Vector2(0, 0)
+shader_parameter/cumulative_stagger_flip = false
+shader_parameter/cumulative_stagger = Vector2(0, 0)
+shader_parameter/stagger_frequency = Vector2i(2, 2)
+shader_parameter/flip_frequency = Vector2i(1, 1)
+shader_parameter/basic_feather = 0.0
+shader_parameter/use_mask_size = false
+shader_parameter/mask_size = Vector2(100, 100)
+shader_parameter/edges = 6
+shader_parameter/shape_feather = 0.1
+shader_parameter/sectors = 1
+shader_parameter/clock_feather = 0.0
+shader_parameter/progress_bias = Vector2(0, 5)
 
 [node name="GameController" type="Node2D" unique_id=1384884456]
 script = ExtResource("1_vq0e2")
@@ -8,3 +63,25 @@ script = ExtResource("1_vq0e2")
 [node name="Scene" type="Node" parent="." unique_id=1989919246]
 
 [node name="UI" type="Node" parent="." unique_id=1328226719]
+
+[node name="Transitions" type="CanvasLayer" parent="." unique_id=126762464]
+
+[node name="fade" type="ColorRect" parent="Transitions" unique_id=2121838006]
+visible = false
+material = SubResource("ShaderMaterial_g4v7s")
+instance_shader_parameters/progress = 1.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="chop" type="ColorRect" parent="Transitions" unique_id=1693226438]
+visible = false
+material = SubResource("ShaderMaterial_vc4nx")
+instance_shader_parameters/progress = 3.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

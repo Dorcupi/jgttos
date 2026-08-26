@@ -88,6 +88,8 @@ var _day_colour_set_up: bool = false
 
 var _player_camera_zoom_amount: float = 1.75
 
+var _restart_requested: bool = false
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	if player and not _player_set_up: _setup_player()
@@ -184,8 +186,10 @@ func _unhandled_key_input(event: InputEvent) -> void:
 		_request_restart()
 
 func _request_restart() -> void:
-	if Global.game_controller and Global.game_controller.current_scene == self:
-		Global.game_controller.restart_scene()
+	if not _restart_requested:
+		if Global.game_controller and Global.game_controller.current_scene == self:
+			_restart_requested = true
+			Global.game_controller.restart_scene(["chop", Color.BLACK])
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
