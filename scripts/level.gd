@@ -1,6 +1,20 @@
 extends Node2D
 class_name Level
 
+enum DAYTIMES {
+	DAWN,
+	MORNING,
+	EVENING,
+	NIGHT
+}
+
+const DAYTIME_COLOURS: Dictionary[DAYTIMES, Color] = {
+	DAYTIMES.DAWN: Color("ffbec2"),
+	DAYTIMES.MORNING: Color("ffffff"),
+	DAYTIMES.EVENING: Color("7996f9"),
+	DAYTIMES.NIGHT: Color("19247e"),
+}
+
 @export_group("Setup")
 @export var player: Player:
 	set(value):
@@ -32,10 +46,25 @@ class_name Level
 				if not _on_screen_detector_set_up:
 					if screen_passing_allowed: _setup_screen_passing()
 @export var reachable_tilemap_layers: Array[TileMapLayer] ## An array filled with TileMapLayer nodes that the player can reach/touch/interact with. Used for detection on spikes, water, and other things.
+@export var day_modulate: CanvasModulate: ## A CanvasModulate node that can be used to change the time of day
+	set(value):
+		if not is_instance_valid(day_modulate):
+			day_modulate = value
+			if is_node_ready():
+				if time_of_day and not _day_colour_set_up:
+					_setup_day_colour()
 
 @export_group("Presentation")
 @export var level_name: String = ""
 @export var level_description: String = ""
+@export var time_of_day: DAYTIMES:
+	set(value):
+		if time_of_day != value:
+			time_of_day = value
+			_day_colour_set_up = false
+			if is_node_ready():
+				if is_instance_valid(day_modulate):
+					_setup_day_colour()
 
 @export_group("Level Features")
 @export var jumping_allowed: bool = true
@@ -50,6 +79,7 @@ var _player_set_up: bool = false
 var _main_camera_set_up: bool = false
 var _player_camera_set_up: bool = false
 var _on_screen_detector_set_up: bool = false
+var _day_colour_set_up: bool = false
 
 var _player_camera_zoom_amount: float = 1.75
 
@@ -111,6 +141,11 @@ func _update_main_camera() -> void:
 func _on_viewport_size_changed() -> void:
 	print("UPDATE CAMERA")
 	_update_main_camera()
+
+func _setup_day_colour() -> void:
+	if DAYTIME_COLOURS.has(time_of_day):
+		day_modulate.color = DAYTIME_COLOURS[time_of_day]
+		_day_colour_set_up = true
 
 func _setup_screen_passing() -> void:
 	on_screen_detector.player_left_screen.connect(_on_player_leave_screen)

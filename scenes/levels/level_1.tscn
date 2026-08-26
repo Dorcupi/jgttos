@@ -814,7 +814,7 @@ normal = Vector2(1, 0)
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_sk5k4"]
 normal = Vector2(-1, 0)
 
-[node name="Level1" type="Node2D" unique_id=871351088 node_paths=PackedStringArray("player", "player_spawn_location", "main_camera", "player_camera", "level_bounding_box", "on_screen_detector", "reachable_tilemap_layers")]
+[node name="Level1" type="Node2D" unique_id=871351088 node_paths=PackedStringArray("player", "player_spawn_location", "main_camera", "player_camera", "level_bounding_box", "on_screen_detector", "reachable_tilemap_layers", "day_modulate")]
 script = ExtResource("1_nsrm0")
 player = NodePath("Player")
 player_spawn_location = NodePath("PlayerSpawnLocation")
@@ -823,6 +823,8 @@ player_camera = NodePath("PlayerCamera")
 level_bounding_box = NodePath("OnScreenDetector/LevelBoundingBox")
 on_screen_detector = NodePath("OnScreenDetector")
 reachable_tilemap_layers = [NodePath("MainLayer"), NodePath("BehindPlayerLayer"), NodePath("InFrontOfPlayerLayer")]
+day_modulate = NodePath("TimeOfDayShader")
+time_of_day = 1
 screen_passing_allowed = true
 death_to_water = true
 metadata/_custom_type_script = "uid://c8cjy6055kcva"
@@ -913,7 +915,6 @@ position = Vector2(1080, 0)
 shape = SubResource("WorldBoundaryShape2D_sk5k4")
 
 [node name="TimeOfDayShader" type="CanvasModulate" parent="." unique_id=819204451]
-color = Color(0.47403562, 0.5866208, 0.9758919, 1)
 
 [connection signal="area_entered" from="OnScreenDetector" to="OnScreenDetector" method="_on_area_entered"]
 [connection signal="area_exited" from="OnScreenDetector" to="OnScreenDetector" method="_on_area_exited"]
