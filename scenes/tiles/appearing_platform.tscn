@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://ivmaps1cheyl"]
+
+[ext_resource type="Script" uid="uid://hu84cciik45i" path="res://scripts/tiles/appearing_platform.gd" id="1_ourf5"]
+[ext_resource type="Texture2D" uid="uid://bigo07386gabl" path="res://assets/tilemap_packed.png" id="2_m1e7m"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
+size = Vector2(72, 18)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ourf5"]
+size = Vector2(79.2, 19.8)
+
+[node name="AppearingPlatform" type="Node2D" unique_id=451194062]
+script = ExtResource("1_ourf5")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=352946962]
+position = Vector2(-27, 0)
+texture = ExtResource("2_m1e7m")
+region_enabled = true
+region_rect = Rect2(18, 0, 36, 18)
+
+[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=621144387]
+position = Vector2(9, 0)
+texture = ExtResource("2_m1e7m")
+region_enabled = true
+region_rect = Rect2(36, 0, 36, 18)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1989884769]
+position = Vector2(-9, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=911911779]
+shape = SubResource("RectangleShape2D_g4v7s")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1572868029]
+position = Vector2(-9, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=384009089]
+shape = SubResource("RectangleShape2D_ourf5")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]

@@ -32,3 +32,5 @@ shape = SubResource("RectangleShape2D_oc4kc")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D" unique_id=1534492730]
 shape = SubResource("RectangleShape2D_oc4kc")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

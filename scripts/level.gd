@@ -51,9 +51,22 @@ const DAYTIME_COLOURS: Dictionary[DAYTIMES, Color] = {
 		if not is_instance_valid(day_modulate):
 			day_modulate = value
 			if is_node_ready():
-				if time_of_day and not _day_colour_set_up:
+				if time_of_day is DAYTIMES and not _day_colour_set_up:
 					_setup_day_colour()
-
+@export var world_barriers: Array[StaticBody2D]: ## An array containing two StaticBody2D nodes with world boundary CollisionShape2D nodes, the first one facing the right to be used from the left, and the second one vice versa.
+	set(value):
+		if value.size() == 2:
+			if world_barriers and world_barriers.size() >= 2:
+				if not is_instance_valid(world_barriers[0]) or not is_instance_valid(world_barriers[1]):
+					world_barriers = value
+					if is_node_ready():
+						if is_instance_valid(level_bounding_box) and not _barriers_set_up:
+							_setup_barriers()
+			else:
+				world_barriers = value
+				if is_node_ready():
+					if is_instance_valid(level_bounding_box) and not _barriers_set_up:
+						_setup_barriers()
 @export_group("Presentation")
 @export var level_name: String = ""
 @export var level_description: String = ""
@@ -85,6 +98,7 @@ var _main_camera_set_up: bool = false
 var _player_camera_set_up: bool = false
 var _on_screen_detector_set_up: bool = false
 var _day_colour_set_up: bool = false
+var _barriers_set_up: bool = false
 
 var _player_camera_zoom_amount: float = 1.75
 
@@ -92,15 +106,38 @@ var _restart_requested: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	if world_barriers and level_bounding_box and not _barriers_set_up: _setup_barriers()
 	if player and not _player_set_up: _setup_player()
 	if not _main_camera_set_up:
 		if main_camera and level_bounding_box and player: _setup_main_camera()
 	get_viewport().size_changed.connect(_on_viewport_size_changed)
 	if not _on_screen_detector_set_up:
 		if screen_passing_allowed: _setup_screen_passing()
+	if day_modulate and time_of_day is DAYTIMES and not _day_colour_set_up:
+		_setup_day_colour()
+	_setup_level_info()
+
+func _setup_level_info() -> void:
+	if Global.game_controller:
+		if Global.game_controller.current_ui and Global.game_controller.current_ui is LevelInfo:
+			Global.game_controller.current_ui.setup(level_name, level_description)
+		else:
+			await Global.game_controller.change_gui_scene(Global.SCENES["level_info"])
+			Global.game_controller.current_ui.setup(level_name, level_description)
+
+func _setup_barriers() -> void:
+	var viewport_size: Vector2 = level_bounding_box.shape.get_rect().size
+	var viewport_position: Vector2 = level_bounding_box.to_global(level_bounding_box.shape.get_rect().position)
+	var difference: float = (72 * 2) if screen_passing_allowed else 0
+	world_barriers[0].global_position.x = viewport_position.x - difference
+	world_barriers[1].global_position.x = viewport_position.x + viewport_size.x + difference
+	_barriers_set_up = true
 
 func _setup_player() -> void:
-	if player_spawn_location: player.global_position = player_spawn_location.global_position
+	player.touched_win_flag.connect(_win_level)
+	if player_spawn_location:
+		print("LLLA")
+		player.set_deferred("global_position", player_spawn_location.global_position)
 	player.can_jump = jumping_allowed
 	player.extra_jumps = double_jumps
 	if player_movement_speed: player.movement_speed = player_movement_speed
@@ -189,7 +226,18 @@ func _request_restart() -> void:
 	if not _restart_requested:
 		if Global.game_controller and Global.game_controller.current_scene == self:
 			_restart_requested = true
+			Global.total_deaths += 1
 			Global.game_controller.restart_scene(["chop", Color.BLACK])
+
+func _win_level() -> void:
+	if Global.game_controller and Global.game_controller.current_scene == self:
+		var current_level: int = Global.LEVELS.find_key(Global.game_controller.current_scene_path)
+		if Global.LEVELS.has(current_level + 1):
+			print("MOVING TO LEVEL %.0f" % (current_level + 1))
+			Global.game_controller.change_scene(Global.LEVELS[current_level + 1], ["chop", Color.BLACK])
+		else:
+			print("BEAT ALL LEVELS, RESTARTING")
+			Global.game_controller.change_scene(Global.LEVELS[1], ["chop", Color.BLACK])
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

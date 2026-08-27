@@ -74,7 +74,7 @@ func handle_end_transition() -> void:
 					await current_trans_tween.finished
 					current_trans_node.visible = false
 
-func change_gui_scene(scene: String, transition: Array, delete: bool = true, keep_running: bool = false) -> void:
+func change_gui_scene(scene: String, transition: Array = [], delete: bool = true, keep_running: bool = false) -> void:
 	if transition.size() > 1:
 		await handle_start_transition(transition[0], transition[1])
 	elif transition.size() == 1:
@@ -91,6 +91,7 @@ func change_gui_scene(scene: String, transition: Array, delete: bool = true, kee
 	ui_holder.add_child(new)
 	current_ui = new
 	current_ui_path = scene
+	while not is_instance_valid(current_ui): await get_tree().physics_frame
 	await handle_end_transition()
 
 func restart_gui_scene(transition: Array = []) -> void:
@@ -104,6 +105,7 @@ func restart_gui_scene(transition: Array = []) -> void:
 		var new: Node = load(current_ui_path).instantiate()
 		ui_holder.add_child(new)
 		current_ui = new
+		while not is_instance_valid(current_ui): await get_tree().physics_frame
 		await handle_end_transition()
 	else:
 		printerr("NO CURRENT UI SCENE RUNNING")
@@ -126,9 +128,10 @@ func change_scene(scene: String, transition: Array = [], delete: bool = true, ke
 	scene_holder.add_child(new)
 	current_scene = new
 	current_scene_path = scene
+	while not is_instance_valid(current_scene): await get_tree().physics_frame
 	await handle_end_transition()
 
-func restart_scene(transition: Array) -> void:
+func restart_scene(transition: Array = []) -> void:
 	if current_scene != null and current_scene_path != "":
 		if transition.size() > 1:
 			await handle_start_transition(transition[0], transition[1])
@@ -139,6 +142,7 @@ func restart_scene(transition: Array) -> void:
 		var new: Node = load(current_scene_path).instantiate()
 		scene_holder.add_child(new)
 		current_scene = new
+		while not is_instance_valid(current_scene): await get_tree().physics_frame
 		await handle_end_transition()
 	else:
 		printerr("NO CURRENT SCENE RUNNING")

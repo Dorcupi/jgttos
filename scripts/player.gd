@@ -1,6 +1,8 @@
 extends CharacterBody2D
 class_name Player
 
+signal touched_win_flag
+
 var movement_speed: float = 300.0
 var acceleration_speed: float = 15.0
 var deacceleration_speed: float = 15.0
@@ -18,6 +20,8 @@ var can_move: bool = true
 var active: bool = false
 
 var _used_extra_jumps: int = 0
+var _touched_win_flag: bool = false
+
 
 func _physics_process(delta: float) -> void:
 	if active:
@@ -30,10 +34,6 @@ func _physics_process(delta: float) -> void:
 			_jump_buffer_timer = jump_buffer_time
 		else:
 			_jump_buffer_timer -= delta
-			if _jump_buffer_timer <= 0 and _testing_buffer:
-				if _coyote_timer <= 0:
-					_used_extra_jumps -= 1
-				_testing_buffer = false
 		if _coyote_timer > 0 and _used_extra_jumps != extra_jumps:
 			_used_extra_jumps = extra_jumps
 		if _jump_buffer_timer > 0 and _coyote_timer > 0 and can_jump:
@@ -41,11 +41,11 @@ func _physics_process(delta: float) -> void:
 			_coyote_timer = 0
 			_jump_buffer_timer = 0
 		elif Input.is_action_just_pressed("jump") and _coyote_timer <= 0 and _used_extra_jumps > 0 and can_jump:
+			print("DOUBLE JUMP")
 			velocity.y = double_jump_velocity
 			_used_extra_jumps -= 1
 		elif _jump_buffer_timer > 0 and _coyote_timer <= 0 and _used_extra_jumps > 0:
 			velocity.y = double_jump_velocity
-			_testing_buffer = true
 			_jump_buffer_timer = 0
 		elif velocity.y < 0.0:
 			if Input.is_action_just_released("jump"):
@@ -56,3 +56,11 @@ func _physics_process(delta: float) -> void:
 		velocity.x = lerp(velocity.x, direction * movement_speed, velocity_weight)
 
 	move_and_slide()
+
+
+func _on_area_2d_area_entered(area: Area2D) -> void:
+	if active:
+		if area.get_parent() is WinFlag and not _touched_win_flag:
+			touched_win_flag.emit()
+			_touched_win_flag = true
+			active = false
