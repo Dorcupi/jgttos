@@ -103,13 +103,15 @@ var _barriers_set_up: bool = false
 var _player_camera_zoom_amount: float = 1.75
 
 var _restart_requested: bool = false
+var _won_level: bool = false
+var _using_player_camera: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	if world_barriers and level_bounding_box and not _barriers_set_up: _setup_barriers()
-	if player and not _player_set_up: _setup_player()
 	if not _main_camera_set_up:
 		if main_camera and level_bounding_box and player: _setup_main_camera()
+	if player and not _player_set_up: _setup_player()
 	get_viewport().size_changed.connect(_on_viewport_size_changed)
 	if not _on_screen_detector_set_up:
 		if screen_passing_allowed: _setup_screen_passing()
@@ -135,6 +137,8 @@ func _setup_barriers() -> void:
 
 func _setup_player() -> void:
 	player.touched_win_flag.connect(_win_level)
+	player.reading_sign.connect(_switch_to_player_camera)
+	player.stopped_reading_sign.connect(_switch_from_player_camera)
 	if player_spawn_location:
 		print("LLLA")
 		player.set_deferred("global_position", player_spawn_location.global_position)
@@ -162,6 +166,17 @@ func _setup_player_camera() -> void:
 		player_camera.set_zoom(main_camera.zoom * _player_camera_zoom_amount)
 	_player_camera_set_up = true
 
+func _switch_to_player_camera() -> void:
+	if _player_camera_set_up and not _using_player_camera:
+		_using_player_camera = true
+		player_camera.priority = 6
+
+func _switch_from_player_camera() -> void:
+	if _player_camera_set_up and _using_player_camera:
+		print("SWITCH BACK")
+		_using_player_camera = false
+		player_camera.priority = 0
+
 func _setup_main_camera() -> void:
 	var viewport_size: Vector2 = main_camera.get_viewport_rect().size
 	var room_size: Vector2 = level_bounding_box.shape.get_rect().size
@@ -186,6 +201,8 @@ func _update_main_camera() -> void:
 	var zoom: Vector2 = Vector2.ONE / zoom_val
 	main_camera.zoom = zoom
 	main_camera.global_position = level_bounding_box.global_position
+	if player_camera:
+		player_camera.set_zoom(main_camera.zoom * _player_camera_zoom_amount)
 
 func _on_viewport_size_changed() -> void:
 	print("UPDATE CAMERA")
@@ -216,28 +233,39 @@ func _on_player_leave_screen() -> void:
 			else:
 				new_player_position.x = viewport_position.x + viewport_size.x + 32
 			player.global_position = new_player_position
+			player.pass_screen_sound_effect.play()
 			# player.global_position.x = wrapf(current_player_position.x, level_bounding_box.to_global(level_bounding_box.shape.get_rect().position).x - 32, level_bounding_box.to_global(level_bounding_box.shape.get_rect().position).x + 32)
 
 func _unhandled_key_input(event: InputEvent) -> void:
 	if event.is_action_pressed("debug"):
 		_request_restart()
 
-func _request_restart() -> void:
-	if not _restart_requested:
+func _request_restart(death: bool = false) -> void:
+	if not _restart_requested and not _won_level:
 		if Global.game_controller and Global.game_controller.current_scene == self:
 			_restart_requested = true
-			Global.total_deaths += 1
-			Global.game_controller.restart_scene(["chop", Color.BLACK])
+			player.active = false
+			if death:
+				Global.total_deaths += 1
+				player.die_sound_effect.play()
+				if main_camera:
+					main_camera.noise = Global.CAMERA_SHAKE
+			Global.game_controller.restart_scene(["fade", Color.BLACK])
 
 func _win_level() -> void:
-	if Global.game_controller and Global.game_controller.current_scene == self:
-		var current_level: int = Global.LEVELS.find_key(Global.game_controller.current_scene_path)
-		if Global.LEVELS.has(current_level + 1):
-			print("MOVING TO LEVEL %.0f" % (current_level + 1))
-			Global.game_controller.change_scene(Global.LEVELS[current_level + 1], ["chop", Color.BLACK])
-		else:
-			print("BEAT ALL LEVELS, RESTARTING")
-			Global.game_controller.change_scene(Global.LEVELS[1], ["chop", Color.BLACK])
+	if not _won_level and not _restart_requested:
+		if Global.game_controller and Global.game_controller.current_scene == self:
+			_won_level = true
+			var path: String = Global.game_controller.current_scene_path
+			if not path.begins_with("uid://"):
+				path = ResourceUID.id_to_text(ResourceLoader.get_resource_uid(path))
+			var current_level: int = Global.LEVELS.find_key(path)
+			if Global.LEVELS.has(current_level + 1):
+				print("MOVING TO LEVEL %.0f" % (current_level + 1))
+				Global.game_controller.change_scene(Global.LEVELS[current_level + 1], ["chop", Color.BLACK])
+			else:
+				print("BEAT ALL LEVELS, RESTARTING")
+				Global.game_controller.change_scene(Global.LEVELS[1], ["chop", Color.BLACK])
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -247,4 +275,4 @@ func _process(delta: float) -> void:
 			var data = i.get_cell_tile_data(cell)
 			if data:
 				if data.get_custom_data("is_water") and death_to_water:
-					_request_restart()
+					_request_restart(true)

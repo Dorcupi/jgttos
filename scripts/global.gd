@@ -1,16 +1,22 @@
 extends Node
 
 const SCENES: Dictionary[String, String] = {
-	"level_info": "res://scenes/level_info.tscn"
+	"main_menu": "uid://d1a2oareltnwj",
+	"level_info": "uid://hlv5k4ojd7h6"
 }
 
 const LEVELS: Dictionary[int, String] = {
-	1: "res://scenes/levels/level_1.tscn",
-	2: "res://scenes/levels/level_2.tscn",
-	3: "res://scenes/levels/level_3.tscn",
+	1: "uid://cv1cjqaakeuml",
+	2: "uid://8tsikr5vdynw",
+	3: "uid://c8x8seny7pxjr",
 }
 
-const GAME_CONTROLLER_FILE = preload("res://scenes/game_controller.tscn")
+const UNPAUSABLE_SCENES: Array[String] = [
+	SCENES.main_menu
+]
+
+const GAME_CONTROLLER_FILE = preload("uid://bsix1apl8x7k6")
+const CAMERA_SHAKE = preload("uid://bnx6t5j5tms3d")
 var game_controller: GameController
 var scene_pass: String
 var total_deaths: int = 0

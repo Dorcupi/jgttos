@@ -2,6 +2,9 @@
 
 [ext_resource type="Script" uid="uid://b71sfipsql2mw" path="res://scripts/player.gd" id="1_3vyb7"]
 [ext_resource type="Texture2D" uid="uid://b2g2hjt0ts40o" path="res://test.svg" id="2_g2els"]
+[ext_resource type="AudioStream" uid="uid://dvuy0xjsng3qs" path="res://sounds/jump.sfxr" id="3_dqkch"]
+[ext_resource type="AudioStream" uid="uid://dyaf3t6u72c6b" path="res://sounds/die.sfxr" id="4_qlg0r"]
+[ext_resource type="AudioStream" uid="uid://bd64e1ktsa7uh" path="res://sounds/screenpass.sfxr" id="5_qlg0r"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_g4v7s"]
 animations = [{
@@ -33,4 +36,22 @@ shape = SubResource("RectangleShape2D_oc4kc")
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D" unique_id=1534492730]
 shape = SubResource("RectangleShape2D_oc4kc")
 
+[node name="Node" type="Node" parent="." unique_id=1481459988]
+
+[node name="JumpSoundEffect" type="AudioStreamPlayer" parent="Node" unique_id=2018343167]
+stream = ExtResource("3_dqkch")
+volume_db = -20.0
+bus = &"Sound Effects"
+
+[node name="DieSoundEffect" type="AudioStreamPlayer" parent="Node" unique_id=1093463651]
+stream = ExtResource("4_qlg0r")
+volume_db = -15.0
+bus = &"Sound Effects"
+
+[node name="PassScreenSoundEffect" type="AudioStreamPlayer" parent="Node" unique_id=1759564793]
+stream = ExtResource("5_qlg0r")
+volume_db = -25.0
+bus = &"Sound Effects"
+
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]

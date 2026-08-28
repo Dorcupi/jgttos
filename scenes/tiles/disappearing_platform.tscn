@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://byxn4lo0vme3r" path="res://scripts/tiles/disappearing_platform.gd" id="1_b5ro1"]
 [ext_resource type="Texture2D" uid="uid://bigo07386gabl" path="res://assets/tilemap_packed.png" id="2_k1v5w"]
+[ext_resource type="AudioStream" uid="uid://ddtryayjtur27" path="res://sounds/appear.sfxr" id="3_k1v5w"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ourf5"]
 size = Vector2(79.2, 19.8)
@@ -26,6 +27,11 @@ position = Vector2(-9, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=384009089]
 shape = SubResource("RectangleShape2D_ourf5")
+
+[node name="SoundEffect" type="AudioStreamPlayer" parent="." unique_id=1177058742]
+stream = ExtResource("3_k1v5w")
+volume_db = -20.0
+bus = &"Sound Effects"
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]

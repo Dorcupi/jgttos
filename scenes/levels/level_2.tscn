@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://ivmaps1cheyl" path="res://scenes/tiles/appearing_platform.tscn" id="4_r88tb"]
 [ext_resource type="PackedScene" uid="uid://br2vbf6n3qp5w" path="res://scenes/tiles/disappearing_platform.tscn" id="5_1yj8c"]
 [ext_resource type="Texture2D" uid="uid://bigo07386gabl" path="res://assets/tilemap_packed.png" id="6_ndlae"]
+[ext_resource type="PackedScene" uid="uid://dmiuhq1s1wort" path="res://scenes/tiles/sign.tscn" id="7_brxtv"]
 [ext_resource type="PackedScene" uid="uid://be86b8l01otvq" path="res://scenes/player.tscn" id="7_v8d84"]
 [ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="8_gw1l3"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="9_p4se4"]
@@ -862,8 +863,13 @@ tile_set = SubResource("TileSet_6761a")
 
 [node name="BehindPlayerLayer" type="TileMapLayer" parent="." unique_id=320041868]
 scale = Vector2(4, 4)
-tile_map_data = PackedByteArray("AAAFAAMAAQANAAMAAAAFAAIAAQANAAEAAAAEAAMAAQANAAMAAAAEAAIAAQANAAEAAAADAAMAAQANAAMAAAADAAIAAQANAAEAAAACAAMAAQANAAMAAAACAAIAAQANAAEAAAABAAMAAQANAAMAAAABAAIAAQANAAEAAAAAAAMAAQANAAMAAAAAAAIAAQANAAEAAAD5////AQAJAAUAAAD5//7/AQAJAAQAAAD5//3/AQAJAAQAAAD5//z/AQAJAAQAAAD5//v/AQAJAAMAAAAMAAAAAQAJAAUAAAAMAP//AQAJAAQAAAAMAP7/AQAJAAQAAAAMAP3/AQAJAAQAAAAMAPz/AQAJAAQAAAAMAPv/AQAJAAMAAAA=")
+tile_map_data = PackedByteArray("AAAFAAMAAQANAAMAAAAFAAIAAQANAAEAAAAEAAMAAQANAAMAAAAEAAIAAQANAAEAAAADAAMAAQANAAMAAAADAAIAAQANAAEAAAACAAMAAQANAAMAAAACAAIAAQANAAEAAAABAAMAAQANAAMAAAABAAIAAQANAAEAAAAAAAMAAQANAAMAAAAAAAIAAQANAAEAAAD5////AQAJAAUAAAD5//7/AQAJAAQAAAD5//3/AQAJAAQAAAD5//z/AQAJAAQAAAD5//v/AQAJAAMAAAAMAAAAAQAJAAUAAAAMAP//AQAJAAQAAAAMAP7/AQAJAAQAAAAMAP3/AQAJAAQAAAAMAPz/AQAJAAQAAAAMAPv/AQAJAAMAAAD9//7/AQAHAAQAAAA=")
 tile_set = SubResource("TileSet_6761a")
+
+[node name="Sign" parent="BehindPlayerLayer" unique_id=153009013 instance=ExtResource("7_brxtv")]
+position = Vector2(-27, -27)
+scale = Vector2(0.25, 0.25)
+sign_text = Array[String](["The Platform Disappears", "The Platform Can Move", "It Probably Will Work", "Just Do It"])
 
 [node name="Player" parent="." unique_id=1108531480 instance=ExtResource("7_v8d84")]
 

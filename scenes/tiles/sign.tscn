@@ -1,0 +1,53 @@
+[gd_scene format=3 uid="uid://dmiuhq1s1wort"]
+
+[ext_resource type="Script" uid="uid://b7vowl6ng0ypf" path="res://scripts/sign.gd" id="1_olpbb"]
+[ext_resource type="Texture2D" uid="uid://bigo07386gabl" path="res://assets/tilemap_packed.png" id="2_f57ne"]
+[ext_resource type="FontFile" uid="uid://brh177rfrlkeg" path="res://fonts/BoldPixelsMDFS.ttf" id="3_olpbb"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_g4v7s"]
+radius = 111.49
+
+[sub_resource type="LabelSettings" id="LabelSettings_g4v7s"]
+font = ExtResource("3_olpbb")
+font_size = 35
+outline_size = 14
+outline_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
+
+[node name="Sign" type="Node2D" unique_id=153009013]
+script = ExtResource("1_olpbb")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=224175876]
+scale = Vector2(4, 4)
+texture = ExtResource("2_f57ne")
+region_enabled = true
+region_rect = Rect2(108, 72, 18, 18)
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1547484075]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=2085441199]
+shape = SubResource("CircleShape2D_g4v7s")
+
+[node name="Label" type="Label" parent="." unique_id=448937426]
+visible = false
+custom_minimum_size = Vector2(408, 68)
+custom_maximum_size = Vector2(408, -1)
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -204.0
+offset_top = -122.0
+offset_right = 204.0
+offset_bottom = -54.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 3
+text = "Sign Text Goes Here."
+label_settings = SubResource("LabelSettings_g4v7s")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]

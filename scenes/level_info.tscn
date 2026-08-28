@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://cjqlnp3uhrkyj" path="res://scripts/level_info.gd" id="1_fhd5p"]
 [ext_resource type="Texture2D" uid="uid://beq4l6fht2gm3" path="res://assets/9slice/Ancient/white.png" id="2_hxhso"]
-[ext_resource type="FontFile" uid="uid://djqt0vlwwomn2" path="res://fonts/Kenney Rocket Square.ttf" id="3_nyagh"]
 [ext_resource type="Texture2D" uid="uid://gki4g2jp6xnm" path="res://assets/9slice/Outline/blue.png" id="4_rrxkc"]
+[ext_resource type="FontFile" uid="uid://dy16rahnn232t" path="res://fonts/BoldPixels.ttf" id="5_hxhso"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jteln"]
 texture = ExtResource("2_hxhso")
@@ -15,8 +15,8 @@ axis_stretch_horizontal = 2
 axis_stretch_vertical = 2
 
 [sub_resource type="LabelSettings" id="LabelSettings_3hkwe"]
-font = ExtResource("3_nyagh")
-font_size = 25
+font = ExtResource("5_hxhso")
+font_size = 35
 font_color = Color(0.2231029, 0.2231029, 0.22310287, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_g4v7s"]
@@ -29,8 +29,8 @@ axis_stretch_horizontal = 2
 axis_stretch_vertical = 2
 
 [sub_resource type="LabelSettings" id="LabelSettings_q1u84"]
-font = ExtResource("3_nyagh")
-font_size = 25
+font = ExtResource("5_hxhso")
+font_size = 35
 font_color = Color(0.2231029, 0.2231029, 0.22310287, 1)
 
 [sub_resource type="Animation" id="Animation_at081"]
@@ -244,6 +244,7 @@ text = "Level 1"
 label_settings = SubResource("LabelSettings_3hkwe")
 horizontal_alignment = 1
 vertical_alignment = 1
+uppercase = true
 
 [node name="HintPanel" type="Panel" parent="Control" unique_id=804295724]
 layout_mode = 1
@@ -268,6 +269,7 @@ text = "Just walk to the other side"
 label_settings = SubResource("LabelSettings_q1u84")
 horizontal_alignment = 1
 vertical_alignment = 1
+uppercase = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=788369342]
 libraries/ = SubResource("AnimationLibrary_qfhel")

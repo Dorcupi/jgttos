@@ -1,7 +1,78 @@
 [gd_scene format=3 uid="uid://bsix1apl8x7k6"]
 
 [ext_resource type="Script" uid="uid://dasfhdjecxx83" path="res://scripts/game_controller.gd" id="1_vq0e2"]
+[ext_resource type="Texture2D" uid="uid://gki4g2jp6xnm" path="res://assets/9slice/Outline/blue.png" id="2_h0hye"]
 [ext_resource type="Shader" uid="uid://dmgb2nvdevuul" path="res://shaders/universaltransition.gdshader" id="2_vc4nx"]
+[ext_resource type="FontFile" uid="uid://dy16rahnn232t" path="res://fonts/BoldPixels.ttf" id="3_d6ul8"]
+[ext_resource type="Texture2D" uid="uid://beq4l6fht2gm3" path="res://assets/9slice/Ancient/white.png" id="4_qtg6w"]
+[ext_resource type="Texture2D" uid="uid://csj7fw3hqbt7s" path="res://assets/9slice/Outline/blue_pressed.png" id="6_kredl"]
+[ext_resource type="Texture2D" uid="uid://doeifpaudyd0y" path="res://assets/9slice/Ancient/white_inlay.png" id="7_j76ji"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_oy6oc"]
+texture = ExtResource("2_h0hye")
+texture_margin_left = 8.0
+texture_margin_top = 8.0
+texture_margin_right = 8.0
+texture_margin_bottom = 8.0
+expand_margin_left = 64.0
+expand_margin_top = 16.0
+expand_margin_right = 64.0
+expand_margin_bottom = 16.0
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+
+[sub_resource type="LabelSettings" id="LabelSettings_twqac"]
+font = ExtResource("3_d6ul8")
+font_size = 100
+font_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
+outline_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
+shadow_size = 7
+shadow_offset = Vector2(0, 5)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_g4v7s"]
+texture = ExtResource("4_qtg6w")
+texture_margin_left = 8.0
+texture_margin_top = 8.0
+texture_margin_right = 8.0
+texture_margin_bottom = 8.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_burlk"]
+texture = ExtResource("6_kredl")
+texture_margin_left = 8.0
+texture_margin_top = 8.0
+texture_margin_right = 8.0
+texture_margin_bottom = 8.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_25rj4"]
+texture = ExtResource("2_h0hye")
+texture_margin_left = 8.0
+texture_margin_top = 8.0
+texture_margin_right = 8.0
+texture_margin_bottom = 8.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wksuf"]
+texture = ExtResource("6_kredl")
+texture_margin_left = 8.0
+texture_margin_top = 8.0
+texture_margin_right = 8.0
+texture_margin_bottom = 8.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_57qmd"]
+texture = ExtResource("7_j76ji")
+texture_margin_left = 8.0
+texture_margin_top = 8.0
+texture_margin_right = 8.0
+texture_margin_bottom = 8.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_g4v7s"]
 shader = ExtResource("2_vc4nx")
@@ -57,14 +128,129 @@ shader_parameter/sectors = 1
 shader_parameter/clock_feather = 0.0
 shader_parameter/progress_bias = Vector2(0, 5)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ts4rt"]
+shader = ExtResource("2_vc4nx")
+shader_parameter/use_sprite_alpha = true
+shader_parameter/use_transition_texture = false
+shader_parameter/transition_type = 0
+shader_parameter/position = Vector2(0.5, 0.5)
+shader_parameter/invert = false
+shader_parameter/grid_size = Vector2(15, 15)
+shader_parameter/rotation_angle = 0.0
+shader_parameter/global_x_mirror = false
+shader_parameter/global_y_mirror = false
+shader_parameter/local_x_mirror = false
+shader_parameter/local_y_mirror = false
+shader_parameter/stagger = Vector2(0, 0)
+shader_parameter/cumulative_stagger_flip = false
+shader_parameter/cumulative_stagger = Vector2(0, 0)
+shader_parameter/stagger_frequency = Vector2i(2, 2)
+shader_parameter/flip_frequency = Vector2i(1, 1)
+shader_parameter/basic_feather = 0.0
+shader_parameter/use_mask_size = false
+shader_parameter/mask_size = Vector2(100, 100)
+shader_parameter/edges = 6
+shader_parameter/shape_feather = 0.1
+shader_parameter/sectors = 1
+shader_parameter/clock_feather = 0.0
+shader_parameter/progress_bias = Vector2(10, 10)
+
 [node name="GameController" type="Node2D" unique_id=1384884456]
+process_mode = 3
 script = ExtResource("1_vq0e2")
 
 [node name="Scene" type="Node" parent="." unique_id=1989919246]
+process_mode = 1
 
 [node name="UI" type="Node" parent="." unique_id=1328226719]
+process_mode = 1
+
+[node name="PauseMenu" type="CanvasLayer" parent="." unique_id=1941055306]
+layer = 2
+visible = false
+
+[node name="PanelContainer2" type="PanelContainer" parent="PauseMenu" unique_id=724470081]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -92.5
+offset_top = -30.5
+offset_right = 92.5
+offset_bottom = 30.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxTexture_oy6oc")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu/PanelContainer2" unique_id=215302887]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="PauseMenu/PanelContainer2/VBoxContainer" unique_id=1499792856]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 1
+text = "PAUSED"
+label_settings = SubResource("LabelSettings_twqac")
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="ContinueButton" type="Button" parent="PauseMenu/PanelContainer2/VBoxContainer" unique_id=2136108432]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
+theme_override_colors/font_focus_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
+theme_override_colors/font_pressed_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
+theme_override_colors/font_hover_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
+theme_override_colors/font_disabled_color = Color(0.22352941, 0.22352941, 0.22352941, 0.4745098)
+theme_override_fonts/font = ExtResource("3_d6ul8")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxTexture_g4v7s")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_burlk")
+theme_override_styles/hover = SubResource("StyleBoxTexture_25rj4")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_wksuf")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_57qmd")
+text = "CONTINUE"
+
+[node name="BackToMenuButton" type="Button" parent="PauseMenu/PanelContainer2/VBoxContainer" unique_id=1347497990]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
+theme_override_colors/font_focus_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
+theme_override_colors/font_pressed_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
+theme_override_colors/font_hover_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
+theme_override_colors/font_disabled_color = Color(0.22352941, 0.22352941, 0.22352941, 0.4745098)
+theme_override_fonts/font = ExtResource("3_d6ul8")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxTexture_g4v7s")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_burlk")
+theme_override_styles/hover = SubResource("StyleBoxTexture_25rj4")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_wksuf")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_57qmd")
+text = "BACK TO MENU"
+
+[node name="QuitGameButton" type="Button" parent="PauseMenu/PanelContainer2/VBoxContainer" unique_id=1211076858]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
+theme_override_colors/font_focus_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
+theme_override_colors/font_pressed_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
+theme_override_colors/font_hover_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
+theme_override_colors/font_disabled_color = Color(0.22352941, 0.22352941, 0.22352941, 0.4745098)
+theme_override_fonts/font = ExtResource("3_d6ul8")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxTexture_g4v7s")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_burlk")
+theme_override_styles/hover = SubResource("StyleBoxTexture_25rj4")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_wksuf")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_57qmd")
+text = "QUIT GAME"
 
 [node name="Transitions" type="CanvasLayer" parent="." unique_id=126762464]
+layer = 3
 
 [node name="fade" type="ColorRect" parent="Transitions" unique_id=2121838006]
 visible = false
@@ -80,6 +266,16 @@ grow_vertical = 2
 visible = false
 material = SubResource("ShaderMaterial_vc4nx")
 instance_shader_parameters/progress = 3.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="diagsquares" type="ColorRect" parent="Transitions" unique_id=1863275954]
+visible = false
+material = SubResource("ShaderMaterial_ts4rt")
+instance_shader_parameters/progress = 30.0
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

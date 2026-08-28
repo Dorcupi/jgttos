@@ -1,0 +1,17 @@
+[remap]
+
+importer="com.timothyqiu.gdfxr.importer"
+type="AudioStreamWAV"
+uid="uid://bd64e1ktsa7uh"
+path="res://.godot/imported/screenpass.sfxr-a437b04cde8b35c622910d49501a5b16.sample"
+
+[deps]
+
+source_file="res://sounds/screenpass.sfxr"
+dest_files=["res://.godot/imported/screenpass.sfxr-a437b04cde8b35c622910d49501a5b16.sample"]
+
+[params]
+
+loop=false
+bit_depth=0
+sample_rate=0

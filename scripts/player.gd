@@ -1,7 +1,13 @@
 extends CharacterBody2D
 class_name Player
 
+@onready var jump_sound_effect: AudioStreamPlayer = $Node/JumpSoundEffect
+@onready var die_sound_effect: AudioStreamPlayer = $Node/DieSoundEffect
+@onready var pass_screen_sound_effect: AudioStreamPlayer = $Node/PassScreenSoundEffect
+
 signal touched_win_flag
+signal reading_sign
+signal stopped_reading_sign
 
 var movement_speed: float = 300.0
 var acceleration_speed: float = 15.0
@@ -10,7 +16,6 @@ var coyote_time: float = 0.15
 var _coyote_timer: float = 0.0
 var jump_buffer_time: float = 0.15
 var _jump_buffer_timer: float = 0.0
-var _testing_buffer: bool = false
 var jump_velocity: float = -400.0
 var double_jump_velocity: float = -400.0
 var variable_jump_cutoff: float = 0.5
@@ -21,15 +26,15 @@ var active: bool = false
 
 var _used_extra_jumps: int = 0
 var _touched_win_flag: bool = false
-
+var _reading_sign: bool = false
 
 func _physics_process(delta: float) -> void:
+	if not is_on_floor():
+		velocity += get_gravity() * delta
+		_coyote_timer -= delta
+	else:
+		_coyote_timer = coyote_time
 	if active:
-		if not is_on_floor():
-			velocity += get_gravity() * delta
-			_coyote_timer -= delta
-		else:
-			_coyote_timer = coyote_time
 		if Input.is_action_just_pressed("jump"):
 			_jump_buffer_timer = jump_buffer_time
 		else:
@@ -40,13 +45,19 @@ func _physics_process(delta: float) -> void:
 			velocity.y = jump_velocity
 			_coyote_timer = 0
 			_jump_buffer_timer = 0
+			jump_sound_effect.pitch_scale = 1.0
+			jump_sound_effect.play()
 		elif Input.is_action_just_pressed("jump") and _coyote_timer <= 0 and _used_extra_jumps > 0 and can_jump:
 			print("DOUBLE JUMP")
 			velocity.y = double_jump_velocity
 			_used_extra_jumps -= 1
+			jump_sound_effect.pitch_scale = 1.0 + (0.2 * (extra_jumps - _used_extra_jumps))
+			jump_sound_effect.play()
 		elif _jump_buffer_timer > 0 and _coyote_timer <= 0 and _used_extra_jumps > 0:
 			velocity.y = double_jump_velocity
 			_jump_buffer_timer = 0
+			jump_sound_effect.pitch_scale = 1.0 + (0.2 * (extra_jumps - _used_extra_jumps))
+			jump_sound_effect.play()
 		elif velocity.y < 0.0:
 			if Input.is_action_just_released("jump"):
 				velocity.y *= variable_jump_cutoff
@@ -64,3 +75,12 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 			touched_win_flag.emit()
 			_touched_win_flag = true
 			active = false
+		elif area.get_parent() is TextSign and not _reading_sign:
+			_reading_sign = true
+			reading_sign.emit()
+
+
+func _on_area_2d_area_exited(area: Area2D) -> void:
+	if area.get_parent() is TextSign and _reading_sign:
+			_reading_sign = false
+			stopped_reading_sign.emit()
