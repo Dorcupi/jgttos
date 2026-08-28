@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://cuchutf2br4d5"]
+
+[ext_resource type="Script" uid="uid://03yu824iwfd" path="res://scripts/splash_screen.gd" id="1_hsxvm"]
+[ext_resource type="Texture2D" uid="uid://cy5vitjdsdl5k" path="res://assets/godotsplash.png" id="1_n4g2v"]
+
+[node name="SplashScreen" type="CanvasLayer" unique_id=1389536156]
+script = ExtResource("1_hsxvm")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=919905965]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_n4g2v")
+expand_mode = 1
+stretch_mode = 6

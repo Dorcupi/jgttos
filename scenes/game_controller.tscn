@@ -213,7 +213,7 @@ theme_override_styles/pressed = SubResource("StyleBoxTexture_burlk")
 theme_override_styles/hover = SubResource("StyleBoxTexture_25rj4")
 theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_wksuf")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_57qmd")
-text = "CONTINUE"
+text = "QUIT GAME?"
 
 [node name="BackToMenuButton" type="Button" parent="PauseMenu/PanelContainer2/VBoxContainer" unique_id=1347497990]
 layout_mode = 2
@@ -247,7 +247,7 @@ theme_override_styles/pressed = SubResource("StyleBoxTexture_burlk")
 theme_override_styles/hover = SubResource("StyleBoxTexture_25rj4")
 theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_wksuf")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_57qmd")
-text = "QUIT GAME"
+text = "CONTINUE?"
 
 [node name="Transitions" type="CanvasLayer" parent="." unique_id=126762464]
 layer = 3

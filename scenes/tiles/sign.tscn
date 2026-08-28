@@ -16,11 +16,35 @@ outline_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
 [node name="Sign" type="Node2D" unique_id=153009013]
 script = ExtResource("1_olpbb")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=224175876]
+[node name="PlainSign" type="Sprite2D" parent="." unique_id=224175876]
 scale = Vector2(4, 4)
 texture = ExtResource("2_f57ne")
 region_enabled = true
 region_rect = Rect2(108, 72, 18, 18)
+
+[node name="LeftSign" type="Sprite2D" parent="." unique_id=2007447255]
+scale = Vector2(4, 4)
+texture = ExtResource("2_f57ne")
+region_enabled = true
+region_rect = Rect2(126, 72, 18, 18)
+
+[node name="RightSign" type="Sprite2D" parent="." unique_id=424751163]
+scale = Vector2(4, 4)
+texture = ExtResource("2_f57ne")
+region_enabled = true
+region_rect = Rect2(144, 72, 18, 18)
+
+[node name="PlainLeftSign" type="Sprite2D" parent="." unique_id=876023902]
+scale = Vector2(4, 4)
+texture = ExtResource("2_f57ne")
+region_enabled = true
+region_rect = Rect2(72, 72, 18, 18)
+
+[node name="PlainRightSign" type="Sprite2D" parent="." unique_id=2000006803]
+scale = Vector2(4, 4)
+texture = ExtResource("2_f57ne")
+region_enabled = true
+region_rect = Rect2(90, 72, 18, 18)
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1547484075]
 
@@ -29,6 +53,7 @@ shape = SubResource("CircleShape2D_g4v7s")
 
 [node name="Label" type="Label" parent="." unique_id=448937426]
 visible = false
+z_index = 99
 custom_minimum_size = Vector2(408, 68)
 custom_maximum_size = Vector2(408, -1)
 anchors_preset = 7

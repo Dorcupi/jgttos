@@ -16,3 +16,9 @@ func _on_play_button_pressed() -> void:
 	if not _switching_scenes:
 		_switching_scenes = true
 		Global.game_controller.change_scene(Global.LEVELS[1], ["chop", Color.BLACK])
+
+
+func _on_quit_button_pressed() -> void:
+	if not _switching_scenes:
+		_switching_scenes = true
+		get_tree().quit()

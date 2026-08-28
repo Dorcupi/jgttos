@@ -1,6 +1,7 @@
 extends Node
 
 const SCENES: Dictionary[String, String] = {
+	"splash": "uid://cuchutf2br4d5",
 	"main_menu": "uid://d1a2oareltnwj",
 	"level_info": "uid://hlv5k4ojd7h6"
 }
@@ -12,7 +13,8 @@ const LEVELS: Dictionary[int, String] = {
 }
 
 const UNPAUSABLE_SCENES: Array[String] = [
-	SCENES.main_menu
+	SCENES.main_menu,
+	SCENES.splash
 ]
 
 const GAME_CONTROLLER_FILE = preload("uid://bsix1apl8x7k6")

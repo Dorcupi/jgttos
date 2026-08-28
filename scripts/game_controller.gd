@@ -40,9 +40,7 @@ func _ready() -> void:
 	if Global.scene_pass != "":
 		change_scene(Global.scene_pass)
 	else:
-		# Load splash screen
-		print("FAKE LOADING SPLASH SCREEN")
-		change_scene(Global.SCENES["main_menu"])
+		change_scene(Global.SCENES.splash)
 
 func handle_start_transition(the_name, color = Color.WHITE) -> void:
 	if the_name is String and color is Color:
@@ -179,7 +177,7 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("pause"):
 		if not _currently_paused:
 			if not Global.UNPAUSABLE_SCENES.has(current_scene_path) and not Global.UNPAUSABLE_SCENES.has(current_ui_path):
-				if not _current_trans_tween.is_valid():
+				if not _current_trans_tween or not _current_trans_tween.is_valid() :
 					_currently_paused = true
 					pause_menu.visible = true
 					continue_button.pressed.connect(unpause_game)

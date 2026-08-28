@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://br2vbf6n3qp5w" path="res://scenes/tiles/disappearing_platform.tscn" id="5_excbq"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="5_sk5k4"]
 [ext_resource type="PackedScene" uid="uid://be86b8l01otvq" path="res://scenes/player.tscn" id="6_sk5k4"]
+[ext_resource type="PackedScene" uid="uid://dmiuhq1s1wort" path="res://scenes/tiles/sign.tscn" id="7_iav0o"]
 [ext_resource type="Script" uid="uid://c072whxo5fxn6" path="res://scripts/on_screen_detector.gd" id="7_s8va5"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_s8va5"]
@@ -863,8 +864,15 @@ tile_set = SubResource("TileSet_6761a")
 
 [node name="BehindPlayerLayer" type="TileMapLayer" parent="." unique_id=320041868]
 scale = Vector2(4, 4)
-tile_map_data = PackedByteArray("AAAFAAMAAQANAAMAAAAFAAIAAQANAAEAAAAEAAMAAQANAAMAAAAEAAIAAQANAAEAAAADAAMAAQANAAMAAAADAAIAAQANAAEAAAACAAMAAQANAAMAAAACAAIAAQANAAEAAAABAAMAAQANAAMAAAABAAIAAQANAAEAAAAAAAMAAQANAAMAAAAAAAIAAQANAAEAAAD8/wAAAQAEAAYAAAD5/wAAAQAJAAUAAAD5////AQAJAAQAAAD5//7/AQAJAAQAAAD5//3/AQAJAAQAAAD5//z/AQAJAAQAAAD5//v/AQAJAAMAAAAMAAAAAQAJAAUAAAAMAP//AQAJAAQAAAAMAP7/AQAJAAQAAAAMAP3/AQAJAAQAAAAMAPz/AQAJAAQAAAAMAPv/AQAJAAMAAAD+/wAAAQAIAAQAAAA=")
+tile_map_data = PackedByteArray("AAAFAAMAAQANAAMAAAAFAAIAAQANAAEAAAAEAAMAAQANAAMAAAAEAAIAAQANAAEAAAADAAMAAQANAAMAAAADAAIAAQANAAEAAAACAAMAAQANAAMAAAACAAIAAQANAAEAAAABAAMAAQANAAMAAAABAAIAAQANAAEAAAAAAAMAAQANAAMAAAAAAAIAAQANAAEAAAD8/wAAAQAEAAYAAAD5/wAAAQAJAAUAAAD5////AQAJAAQAAAD5//7/AQAJAAQAAAD5//3/AQAJAAQAAAD5//z/AQAJAAQAAAD5//v/AQAJAAMAAAAMAAAAAQAJAAUAAAAMAP//AQAJAAQAAAAMAP7/AQAJAAQAAAAMAP3/AQAJAAQAAAAMAPz/AQAJAAQAAAAMAPv/AQAJAAMAAAA=")
 tile_set = SubResource("TileSet_6761a")
+
+[node name="Sign" parent="BehindPlayerLayer" unique_id=153009013 instance=ExtResource("7_iav0o")]
+position = Vector2(-27, 9)
+scale = Vector2(0.25, 0.25)
+sign_text = Array[String](["Just Jump Onto The Platform", "Nothing Can Go Wrong", "Just Do It"])
+sign_style = 2
+metadata/_scene_painted = true
 
 [node name="Player" parent="." unique_id=1108531480 instance=ExtResource("6_sk5k4")]
 
@@ -877,10 +885,12 @@ tile_set = SubResource("TileSet_6761a")
 top_level = true
 script = ExtResource("2_x42e6")
 priority = 1
-follow_mode = 5
+follow_mode = 1
 follow_target = NodePath("../Player")
 tween_resource = SubResource("Resource_sk5k4")
 tween_on_load = false
+follow_damping = true
+follow_damping_value = Vector2(1, 1)
 dead_zone_height = 0.75
 metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 

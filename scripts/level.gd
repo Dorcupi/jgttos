@@ -105,6 +105,9 @@ var _player_camera_zoom_amount: float = 1.75
 var _restart_requested: bool = false
 var _won_level: bool = false
 var _using_player_camera: bool = false
+var _moving_camera_up: bool = true
+
+var _fake_camera_player: Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -181,15 +184,29 @@ func _setup_main_camera() -> void:
 	var viewport_size: Vector2 = main_camera.get_viewport_rect().size
 	var room_size: Vector2 = level_bounding_box.shape.get_rect().size
 	var zoom_x: float = room_size.x / viewport_size.x
-	var zoom_y: float = room_size.y / viewport_size.y
 	var zoom_val: float = zoom_x # max(zoom_x, zoom_y) # min(zoom_x, zoom_y)
 	var zoom: Vector2 = Vector2.ONE / zoom_val
-	main_camera.set_follow_target(player)
+	var window_size: Vector2 = get_window().size
+	var required_height: float = window_size.y * 0.45
+	var height_test_value: float = required_height / 2
+	if not is_instance_valid(_fake_camera_player):
+		_fake_camera_player = Node2D.new()
+		_fake_camera_player.global_position.x = level_bounding_box.global_position.x # + (room_size.x / 2)
+		_fake_camera_player.global_position.y = player.global_position.y - (64 * 2)
+		add_child(_fake_camera_player)
+	else: _fake_camera_player.global_position.x = level_bounding_box.global_position.x # + (room_size.x / 2)
+	if player.global_position.y > _fake_camera_player.global_position.y - height_test_value and player.global_position.y < _fake_camera_player.global_position.y + height_test_value:
+		_moving_camera_up = true
+	else:
+		_moving_camera_up = false
+	_update_fake_player_position()
+	main_camera.global_position = _fake_camera_player.global_position
+	main_camera.set_follow_target(_fake_camera_player)
 	main_camera.set_follow_offset(Vector2.ZERO)
 	main_camera.set_follow_damping(true)
-	main_camera.set_limit_target(level_bounding_box.get_path())
+	main_camera.set_follow_damping_value(Vector2.ONE)
+	# main_camera.set_limit_target(level_bounding_box.get_path())
 	main_camera.zoom = zoom
-	main_camera.global_position = level_bounding_box.global_position
 	_main_camera_set_up = true
 
 func _update_main_camera() -> void:
@@ -199,8 +216,22 @@ func _update_main_camera() -> void:
 	var zoom_y: float = room_size.y / viewport_size.y
 	var zoom_val: float = zoom_x # max(zoom_x, zoom_y) # min(zoom_x, zoom_y)
 	var zoom: Vector2 = Vector2.ONE / zoom_val
+	var window_size: Vector2 = get_window().size
+	var required_height: float = window_size.y * 0.45
+	var height_test_value: float = required_height / 2
+	if not is_instance_valid(_fake_camera_player):
+		_fake_camera_player = Node2D.new()
+		_fake_camera_player.global_position.x = level_bounding_box.global_position.x # + (room_size.x / 2)
+		_fake_camera_player.global_position.y = player.global_position.y - (64 * 2)
+		add_child(_fake_camera_player)
+	else: _fake_camera_player.global_position.x = level_bounding_box.global_position.x # + (room_size.x / 2)
+	if player.global_position.y > _fake_camera_player.global_position.y - height_test_value and player.global_position.y < _fake_camera_player.global_position.y + height_test_value:
+		_moving_camera_up = true
+	else:
+		_moving_camera_up = false
+	_update_fake_player_position()
+	# main_camera.global_position = _fake_camera_player.global_position
 	main_camera.zoom = zoom
-	main_camera.global_position = level_bounding_box.global_position
 	if player_camera:
 		player_camera.set_zoom(main_camera.zoom * _player_camera_zoom_amount)
 
@@ -256,6 +287,7 @@ func _win_level() -> void:
 	if not _won_level and not _restart_requested:
 		if Global.game_controller and Global.game_controller.current_scene == self:
 			_won_level = true
+			player.win_sound_effect.play()
 			var path: String = Global.game_controller.current_scene_path
 			if not path.begins_with("uid://"):
 				path = ResourceUID.id_to_text(ResourceLoader.get_resource_uid(path))
@@ -276,3 +308,10 @@ func _process(delta: float) -> void:
 			if data:
 				if data.get_custom_data("is_water") and death_to_water:
 					_request_restart(true)
+	if player and _fake_camera_player and main_camera: _update_fake_player_position()
+
+func _update_fake_player_position() -> void:
+	if _moving_camera_up:
+		_fake_camera_player.global_position.y = player.global_position.y - (64 * 2)
+	else:
+		_fake_camera_player.global_position.y = player.global_position.y

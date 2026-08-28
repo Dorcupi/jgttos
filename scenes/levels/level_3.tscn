@@ -880,10 +880,12 @@ tile_set = SubResource("TileSet_6761a")
 top_level = true
 script = ExtResource("8_fhpes")
 priority = 1
-follow_mode = 5
+follow_mode = 1
 follow_target = NodePath("../Player")
 tween_resource = SubResource("Resource_sk5k4")
 tween_on_load = false
+follow_damping = true
+follow_damping_value = Vector2(1, 1)
 dead_zone_height = 0.75
 metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 

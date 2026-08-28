@@ -1,24 +1,166 @@
 [gd_scene format=3 uid="uid://be86b8l01otvq"]
 
 [ext_resource type="Script" uid="uid://b71sfipsql2mw" path="res://scripts/player.gd" id="1_3vyb7"]
-[ext_resource type="Texture2D" uid="uid://b2g2hjt0ts40o" path="res://test.svg" id="2_g2els"]
+[ext_resource type="Shader" uid="uid://baefh3iq7n5se" path="res://shaders/outline.gdshader" id="2_oprun"]
+[ext_resource type="Texture2D" uid="uid://cpfx13n6yd37c" path="res://assets/player/spritesheet.png" id="2_tuyoq"]
 [ext_resource type="AudioStream" uid="uid://dvuy0xjsng3qs" path="res://sounds/jump.sfxr" id="3_dqkch"]
 [ext_resource type="AudioStream" uid="uid://dyaf3t6u72c6b" path="res://sounds/die.sfxr" id="4_qlg0r"]
 [ext_resource type="AudioStream" uid="uid://bd64e1ktsa7uh" path="res://sounds/screenpass.sfxr" id="5_qlg0r"]
+[ext_resource type="AudioStream" uid="uid://cv4feosq8hj6n" path="res://sounds/win.ogg" id="6_tuyoq"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_i4ail"]
+shader = ExtResource("2_oprun")
+shader_parameter/thickness = 20.00000095
+shader_parameter/ring_count = 16
+shader_parameter/ring_offset = 0.0
+shader_parameter/outline_color = Color(0.18431373, 0.14509805, 0.13333334, 1)
+shader_parameter/border_clipping_fix = true
+shader_parameter/aspect_ratio = 1.0
+shader_parameter/square_border = true
+shader_parameter/offset = Vector2(0, 0)
+shader_parameter/max_or_add = false
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fjrip"]
+atlas = ExtResource("2_tuyoq")
+region = Rect2(1296, 1104, 432, 552)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_smehm"]
+atlas = ExtResource("2_tuyoq")
+region = Rect2(1296, 1656, 432, 552)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ur7pv"]
+atlas = ExtResource("2_tuyoq")
+region = Rect2(0, 0, 432, 552)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y4r1p"]
+atlas = ExtResource("2_tuyoq")
+region = Rect2(0, 552, 432, 552)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d2wvv"]
+atlas = ExtResource("2_tuyoq")
+region = Rect2(0, 1104, 432, 552)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3v2ag"]
+atlas = ExtResource("2_tuyoq")
+region = Rect2(432, 1104, 432, 552)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jej6c"]
+atlas = ExtResource("2_tuyoq")
+region = Rect2(864, 1104, 432, 552)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f1ej7"]
+atlas = ExtResource("2_tuyoq")
+region = Rect2(0, 1656, 432, 552)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oprun"]
+atlas = ExtResource("2_tuyoq")
+region = Rect2(432, 1656, 432, 552)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a8ls1"]
+atlas = ExtResource("2_tuyoq")
+region = Rect2(864, 1656, 432, 552)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qfm1y"]
+atlas = ExtResource("2_tuyoq")
+region = Rect2(0, 552, 432, 552)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fulsm"]
+atlas = ExtResource("2_tuyoq")
+region = Rect2(432, 552, 432, 552)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4r5pv"]
+atlas = ExtResource("2_tuyoq")
+region = Rect2(864, 552, 432, 552)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_60mlk"]
+atlas = ExtResource("2_tuyoq")
+region = Rect2(1296, 552, 432, 552)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_g4v7s"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_g2els")
+"texture": SubResource("AtlasTexture_fjrip")
+}],
+"loop": 0,
+"name": &"fall_front",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_smehm")
+}],
+"loop": 0,
+"name": &"fall_left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ur7pv")
 }],
 "loop": 1,
-"name": &"default",
+"name": &"idle_front",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y4r1p")
+}],
+"loop": 1,
+"name": &"idle_left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d2wvv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3v2ag")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jej6c")
+}],
+"loop": 0,
+"name": &"jump_front",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f1ej7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oprun")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a8ls1")
+}],
+"loop": 0,
+"name": &"jump_left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qfm1y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fulsm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4r5pv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_60mlk")
+}],
+"loop": 1,
+"name": &"walk_left",
 "speed": 5.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tuyoq"]
+size = Vector2(54, 77)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oc4kc"]
-size = Vector2(64, 64)
+size = Vector2(64, 77)
 
 [node name="Player" type="CharacterBody2D" unique_id=1108531480]
 collision_layer = 2
@@ -26,14 +168,20 @@ collision_mask = 13
 script = ExtResource("1_3vyb7")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1173923670]
+material = SubResource("ShaderMaterial_i4ail")
+position = Vector2(0, -27)
+scale = Vector2(0.25, 0.25)
 sprite_frames = SubResource("SpriteFrames_g4v7s")
+animation = &"idle_front"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=233126332]
-shape = SubResource("RectangleShape2D_oc4kc")
+position = Vector2(0, -1.5)
+shape = SubResource("RectangleShape2D_tuyoq")
 
 [node name="Area2D" type="Area2D" parent="." unique_id=335417623]
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D" unique_id=1534492730]
+position = Vector2(0, -1.5)
 shape = SubResource("RectangleShape2D_oc4kc")
 
 [node name="Node" type="Node" parent="." unique_id=1481459988]
@@ -51,6 +199,11 @@ bus = &"Sound Effects"
 [node name="PassScreenSoundEffect" type="AudioStreamPlayer" parent="Node" unique_id=1759564793]
 stream = ExtResource("5_qlg0r")
 volume_db = -25.0
+bus = &"Sound Effects"
+
+[node name="WinSoundEffect" type="AudioStreamPlayer" parent="Node" unique_id=59802226]
+stream = ExtResource("6_tuyoq")
+volume_db = -20.0
 bus = &"Sound Effects"
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
