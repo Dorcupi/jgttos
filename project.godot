@@ -26,6 +26,7 @@ buses/default_bus_layout="uid://byf88ejok6w3d"
 
 PhantomCameraManager="*uid://duq6jhf6unyis"
 Global="*uid://i1m5cmfxb7m1"
+Screenshots="*uid://bljdk7ctqona7"
 
 [display]
 
@@ -34,7 +35,7 @@ window/stretch/aspect="expand"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/gdfxr/plugin.cfg", "res://addons/godot_super-wakatime/plugin.cfg", "res://addons/phantom_camera/plugin.cfg")
+enabled=PackedStringArray("res://addons/gdfxr/plugin.cfg", "res://addons/godot_super-wakatime/plugin.cfg", "res://addons/phantom_camera/plugin.cfg", "res://addons/screenshots/plugin.cfg")
 
 [input]
 
