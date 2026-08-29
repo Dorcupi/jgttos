@@ -195,6 +195,7 @@ func _input(event: InputEvent) -> void:
 						level_select_button.visible = false
 					quit_game_button.pressed.connect(unpause_quit)
 					get_tree().paused = true
+		else: unpause_game()
 
 func unpause_quit() -> void:
 	if unpause_game(): get_tree().quit()
