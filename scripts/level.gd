@@ -121,7 +121,7 @@ func _ready() -> void:
 	if day_modulate and time_of_day is DAYTIMES and not _day_colour_set_up:
 		_setup_day_colour()
 	_setup_level_info()
-	Global.game_controller.music_manager.current_level = Global.game_controller.music_manager.LEVELS.LEVEL_2
+	if Global.game_controller and Global.game_controller.music_manager: Global.game_controller.music_manager.current_level = Global.game_controller.music_manager.LEVELS.LEVEL_2
 
 func _setup_level_info() -> void:
 	if Global.game_controller:
@@ -292,15 +292,16 @@ func _win_level() -> void:
 			var path: String = Global.game_controller.current_scene_path
 			if not path.begins_with("uid://"):
 				path = ResourceUID.id_to_text(ResourceLoader.get_resource_uid(path))
-			var current_level: int = Global.LEVELS.find_key(path)
-			if not Global.levels_beat.has(current_level): Global.levels_beat.append(current_level)
-			if not Global.levels_unlocked.has(current_level + 1): Global.levels_unlocked.append(current_level + 1)
-			if Global.LEVELS.has(current_level + 1):
-				print("MOVING TO LEVEL %.0f" % (current_level + 1))
-				Global.game_controller.change_scene(Global.LEVELS[current_level + 1], ["chop", Color.BLACK])
-			else:
-				print("BEAT ALL LEVELS, RESTARTING")
-				Global.game_controller.change_scene(Global.LEVELS[1], ["chop", Color.BLACK])
+			if Global.LEVELS.values().has(path):
+				var current_level: int = Global.LEVELS.find_key(path)
+				if not Global.levels_beat.has(current_level): Global.levels_beat.append(current_level)
+				if not Global.levels_unlocked.has(current_level + 1): Global.levels_unlocked.append(current_level + 1)
+				if Global.LEVELS.has(current_level + 1):
+					print("MOVING TO LEVEL %.0f" % (current_level + 1))
+					Global.game_controller.change_scene(Global.LEVELS[current_level + 1], ["chop", Color.BLACK])
+				else:
+					print("BEAT ALL LEVELS, RESTARTING")
+					Global.game_controller.change_scene(Global.LEVELS[1], ["chop", Color.BLACK])
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
