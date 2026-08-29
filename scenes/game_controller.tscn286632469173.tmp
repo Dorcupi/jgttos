@@ -170,7 +170,6 @@ process_mode = 1
 [node name="Music" type="AudioStreamPlayer" parent="." unique_id=254606191]
 stream = ExtResource("2_d6ul8")
 volume_db = -15.0
-autoplay = true
 bus = &"Music"
 script = ExtResource("6_j76ji")
 
@@ -240,23 +239,6 @@ theme_override_styles/hover = SubResource("StyleBoxTexture_25rj4")
 theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_wksuf")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_57qmd")
 text = "BACK TO MENU"
-
-[node name="LevelSelectButton" type="Button" parent="PauseMenu/PanelContainer2/VBoxContainer" unique_id=1718019607]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
-theme_override_colors/font_focus_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
-theme_override_colors/font_pressed_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
-theme_override_colors/font_hover_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
-theme_override_colors/font_disabled_color = Color(0.22352941, 0.22352941, 0.22352941, 0.4745098)
-theme_override_fonts/font = ExtResource("3_d6ul8")
-theme_override_font_sizes/font_size = 32
-theme_override_styles/normal = SubResource("StyleBoxTexture_g4v7s")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_burlk")
-theme_override_styles/hover = SubResource("StyleBoxTexture_25rj4")
-theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_wksuf")
-theme_override_styles/disabled = SubResource("StyleBoxTexture_57qmd")
-text = "LEVEL SELECT"
 
 [node name="QuitGameButton" type="Button" parent="PauseMenu/PanelContainer2/VBoxContainer" unique_id=1211076858]
 layout_mode = 2

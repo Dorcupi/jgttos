@@ -1,6 +1,7 @@
 extends Node2D
 class_name GameController
 
+@onready var music_manager: MusicManager = $Music
 @onready var scene_holder: Node = $Scene
 @onready var ui_holder: Node = $UI
 @onready var transition_holder: Node = $Transitions
@@ -8,6 +9,7 @@ class_name GameController
 @onready var continue_button: Button = $PauseMenu/PanelContainer2/VBoxContainer/ContinueButton
 @onready var back_to_menu_button: Button = $PauseMenu/PanelContainer2/VBoxContainer/BackToMenuButton
 @onready var quit_game_button: Button = $PauseMenu/PanelContainer2/VBoxContainer/QuitGameButton
+@onready var level_select_button: Button = $PauseMenu/PanelContainer2/VBoxContainer/LevelSelectButton
 
 var current_scene: Node = null
 var current_scene_path: String = ""
@@ -186,6 +188,11 @@ func _input(event: InputEvent) -> void:
 						back_to_menu_button.pressed.connect(unpause_to_menu)
 					else:
 						back_to_menu_button.visible = false
+					if Global.LEVELS.values().has(current_scene_path):
+						level_select_button.visible = true
+						level_select_button.pressed.connect(unpause_to_level_select)
+					else:
+						level_select_button.visible = false
 					quit_game_button.pressed.connect(unpause_quit)
 					get_tree().paused = true
 
@@ -195,6 +202,9 @@ func unpause_quit() -> void:
 func unpause_to_menu() -> void:
 	if unpause_game(): change_scene(Global.SCENES.main_menu, ["chop", Color.BLACK], true, false, true)
 
+func unpause_to_level_select() -> void:
+	if unpause_game(): change_scene(Global.SCENES.level_select, ["chop", Color.BLACK], true, false, true)
+
 func unpause_game() -> bool:
 	var success: bool = false
 	if _currently_paused:
@@ -202,6 +212,7 @@ func unpause_game() -> bool:
 		pause_menu.visible = false
 		continue_button.pressed.disconnect(unpause_game)
 		if back_to_menu_button.pressed.is_connected(unpause_to_menu): back_to_menu_button.pressed.disconnect(unpause_to_menu)
+		if level_select_button.pressed.is_connected(unpause_to_level_select): level_select_button.pressed.disconnect(unpause_to_level_select)
 		quit_game_button.pressed.disconnect(unpause_quit)
 		get_tree().paused = false
 		success = true

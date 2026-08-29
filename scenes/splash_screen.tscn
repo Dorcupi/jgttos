@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://03yu824iwfd" path="res://scripts/splash_screen.gd" id="1_hsxvm"]
 [ext_resource type="Texture2D" uid="uid://cy5vitjdsdl5k" path="res://assets/godotsplash.png" id="1_n4g2v"]
+[ext_resource type="AudioStream" uid="uid://c675tt3r4g7ng" path="res://sounds/win.sfxr" id="3_4gp4q"]
 
 [node name="SplashScreen" type="CanvasLayer" unique_id=1389536156]
 script = ExtResource("1_hsxvm")
@@ -15,3 +16,8 @@ grow_vertical = 2
 texture = ExtResource("1_n4g2v")
 expand_mode = 1
 stretch_mode = 6
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=621724356]
+stream = ExtResource("3_4gp4q")
+volume_db = -20.0
+bus = &"Sound Effects"

@@ -1,0 +1,433 @@
+[gd_scene format=3 uid="uid://s3r2jik76p56"]
+
+[ext_resource type="Script" uid="uid://dgwc22ycu2ud5" path="res://scripts/level_select.gd" id="1_4nqmc"]
+[ext_resource type="Texture2D" uid="uid://d0b1irot63tu7" path="res://assets/tilemap-backgrounds_packed.png" id="1_r77uv"]
+[ext_resource type="FontFile" uid="uid://dy16rahnn232t" path="res://fonts/BoldPixels.ttf" id="2_4nqmc"]
+[ext_resource type="Texture2D" uid="uid://beq4l6fht2gm3" path="res://assets/9slice/Ancient/white.png" id="3_7plkq"]
+[ext_resource type="Texture2D" uid="uid://csj7fw3hqbt7s" path="res://assets/9slice/Outline/blue_pressed.png" id="4_ckc44"]
+[ext_resource type="Texture2D" uid="uid://gki4g2jp6xnm" path="res://assets/9slice/Outline/blue.png" id="5_o2xx4"]
+[ext_resource type="Texture2D" uid="uid://doeifpaudyd0y" path="res://assets/9slice/Ancient/white_inlay.png" id="6_htctk"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s6tf7"]
+atlas = ExtResource("1_r77uv")
+region = Rect2(0, 0, 96, 72)
+
+[sub_resource type="Animation" id="Animation_wu84c"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Background1:offset_transform_position_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Background2:offset_transform_position_ratio")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_8ln24"]
+resource_name = "loop"
+length = 50.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Background1:offset_transform_position_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 50),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(-1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Background2:offset_transform_position_ratio")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 50),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 0), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_u4mbh"]
+_data = {
+&"RESET": SubResource("Animation_wu84c"),
+&"loop": SubResource("Animation_8ln24")
+}
+
+[sub_resource type="LabelSettings" id="LabelSettings_rovvv"]
+font = ExtResource("2_4nqmc")
+font_size = 63
+font_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
+outline_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
+shadow_size = 7
+shadow_offset = Vector2(0, 5)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0wyvj"]
+content_margin_left = 20.0
+content_margin_right = 20.0
+texture = ExtResource("3_7plkq")
+texture_margin_left = 8.0
+texture_margin_top = 8.0
+texture_margin_right = 8.0
+texture_margin_bottom = 8.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_m4qq5"]
+content_margin_left = 20.0
+content_margin_right = 20.0
+texture = ExtResource("4_ckc44")
+texture_margin_left = 8.0
+texture_margin_top = 8.0
+texture_margin_right = 8.0
+texture_margin_bottom = 8.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_n1411"]
+content_margin_left = 20.0
+content_margin_right = 20.0
+texture = ExtResource("5_o2xx4")
+texture_margin_left = 8.0
+texture_margin_top = 8.0
+texture_margin_right = 8.0
+texture_margin_bottom = 8.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vxici"]
+content_margin_left = 20.0
+content_margin_right = 20.0
+texture = ExtResource("4_ckc44")
+texture_margin_left = 8.0
+texture_margin_top = 8.0
+texture_margin_right = 8.0
+texture_margin_bottom = 8.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_thf6c"]
+content_margin_left = 20.0
+content_margin_right = 20.0
+texture = ExtResource("6_htctk")
+texture_margin_left = 8.0
+texture_margin_top = 8.0
+texture_margin_right = 8.0
+texture_margin_bottom = 8.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="LevelSelect" type="CanvasLayer" unique_id=527788551]
+script = ExtResource("1_4nqmc")
+
+[node name="Background1" type="TextureRect" parent="." unique_id=918005842]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+offset_transform_enabled = true
+texture = SubResource("AtlasTexture_s6tf7")
+stretch_mode = 6
+
+[node name="Background2" type="TextureRect" parent="." unique_id=998548758]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+offset_transform_enabled = true
+offset_transform_position_ratio = Vector2(1, 0)
+texture = SubResource("AtlasTexture_s6tf7")
+stretch_mode = 6
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1368277315]
+libraries/ = SubResource("AnimationLibrary_u4mbh")
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=1125700490]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer" unique_id=1661567262]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Title" type="Label" parent="CenterContainer/VBoxContainer" unique_id=2113030091]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 1
+text = "LEVEL SELECT"
+label_settings = SubResource("LabelSettings_rovvv")
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="LevelButtons" type="GridContainer" parent="CenterContainer/VBoxContainer" unique_id=1051397730]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/h_separation = 16
+theme_override_constants/v_separation = 16
+columns = 3
+
+[node name="1" type="Button" parent="CenterContainer/VBoxContainer/LevelButtons" unique_id=347096618]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
+theme_override_colors/font_focus_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
+theme_override_colors/font_pressed_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
+theme_override_colors/font_hover_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
+theme_override_colors/font_disabled_color = Color(0.22352941, 0.22352941, 0.22352941, 0.4745098)
+theme_override_fonts/font = ExtResource("2_4nqmc")
+theme_override_font_sizes/font_size = 64
+theme_override_styles/normal = SubResource("StyleBoxTexture_0wyvj")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_m4qq5")
+theme_override_styles/hover = SubResource("StyleBoxTexture_n1411")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_vxici")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_thf6c")
+disabled = true
+text = "1"
+
+[node name="2" type="Button" parent="CenterContainer/VBoxContainer/LevelButtons" unique_id=223790126]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
+theme_override_colors/font_focus_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
+theme_override_colors/font_pressed_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
+theme_override_colors/font_hover_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
+theme_override_colors/font_disabled_color = Color(0.22352941, 0.22352941, 0.22352941, 0.4745098)
+theme_override_fonts/font = ExtResource("2_4nqmc")
+theme_override_font_sizes/font_size = 64
+theme_override_styles/normal = SubResource("StyleBoxTexture_0wyvj")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_m4qq5")
+theme_override_styles/hover = SubResource("StyleBoxTexture_n1411")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_vxici")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_thf6c")
+disabled = true
+text = "2"
+
+[node name="3" type="Button" parent="CenterContainer/VBoxContainer/LevelButtons" unique_id=622743824]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
+theme_override_colors/font_focus_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
+theme_override_colors/font_pressed_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
+theme_override_colors/font_hover_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
+theme_override_colors/font_disabled_color = Color(0.22352941, 0.22352941, 0.22352941, 0.4745098)
+theme_override_fonts/font = ExtResource("2_4nqmc")
+theme_override_font_sizes/font_size = 64
+theme_override_styles/normal = SubResource("StyleBoxTexture_0wyvj")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_m4qq5")
+theme_override_styles/hover = SubResource("StyleBoxTexture_n1411")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_vxici")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_thf6c")
+disabled = true
+text = "3"
+
+[node name="4" type="Button" parent="CenterContainer/VBoxContainer/LevelButtons" unique_id=1462833662]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
+theme_override_colors/font_focus_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
+theme_override_colors/font_pressed_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
+theme_override_colors/font_hover_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
+theme_override_colors/font_disabled_color = Color(0.22352941, 0.22352941, 0.22352941, 0.4745098)
+theme_override_fonts/font = ExtResource("2_4nqmc")
+theme_override_font_sizes/font_size = 64
+theme_override_styles/normal = SubResource("StyleBoxTexture_0wyvj")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_m4qq5")
+theme_override_styles/hover = SubResource("StyleBoxTexture_n1411")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_vxici")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_thf6c")
+disabled = true
+text = "4"
+
+[node name="5" type="Button" parent="CenterContainer/VBoxContainer/LevelButtons" unique_id=776608718]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
+theme_override_colors/font_focus_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
+theme_override_colors/font_pressed_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
+theme_override_colors/font_hover_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
+theme_override_colors/font_disabled_color = Color(0.22352941, 0.22352941, 0.22352941, 0.4745098)
+theme_override_fonts/font = ExtResource("2_4nqmc")
+theme_override_font_sizes/font_size = 64
+theme_override_styles/normal = SubResource("StyleBoxTexture_0wyvj")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_m4qq5")
+theme_override_styles/hover = SubResource("StyleBoxTexture_n1411")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_vxici")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_thf6c")
+disabled = true
+text = "5"
+
+[node name="6" type="Button" parent="CenterContainer/VBoxContainer/LevelButtons" unique_id=1942116689]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
+theme_override_colors/font_focus_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
+theme_override_colors/font_pressed_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
+theme_override_colors/font_hover_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
+theme_override_colors/font_disabled_color = Color(0.22352941, 0.22352941, 0.22352941, 0.4745098)
+theme_override_fonts/font = ExtResource("2_4nqmc")
+theme_override_font_sizes/font_size = 64
+theme_override_styles/normal = SubResource("StyleBoxTexture_0wyvj")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_m4qq5")
+theme_override_styles/hover = SubResource("StyleBoxTexture_n1411")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_vxici")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_thf6c")
+disabled = true
+text = "6"
+
+[node name="7" type="Button" parent="CenterContainer/VBoxContainer/LevelButtons" unique_id=378848356]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
+theme_override_colors/font_focus_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
+theme_override_colors/font_pressed_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
+theme_override_colors/font_hover_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
+theme_override_colors/font_disabled_color = Color(0.22352941, 0.22352941, 0.22352941, 0.4745098)
+theme_override_fonts/font = ExtResource("2_4nqmc")
+theme_override_font_sizes/font_size = 64
+theme_override_styles/normal = SubResource("StyleBoxTexture_0wyvj")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_m4qq5")
+theme_override_styles/hover = SubResource("StyleBoxTexture_n1411")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_vxici")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_thf6c")
+disabled = true
+text = "7"
+
+[node name="8" type="Button" parent="CenterContainer/VBoxContainer/LevelButtons" unique_id=461191433]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
+theme_override_colors/font_focus_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
+theme_override_colors/font_pressed_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
+theme_override_colors/font_hover_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
+theme_override_colors/font_disabled_color = Color(0.22352941, 0.22352941, 0.22352941, 0.4745098)
+theme_override_fonts/font = ExtResource("2_4nqmc")
+theme_override_font_sizes/font_size = 64
+theme_override_styles/normal = SubResource("StyleBoxTexture_0wyvj")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_m4qq5")
+theme_override_styles/hover = SubResource("StyleBoxTexture_n1411")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_vxici")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_thf6c")
+disabled = true
+text = "8"
+
+[node name="9" type="Button" parent="CenterContainer/VBoxContainer/LevelButtons" unique_id=1409502133]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
+theme_override_colors/font_focus_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
+theme_override_colors/font_pressed_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
+theme_override_colors/font_hover_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
+theme_override_colors/font_disabled_color = Color(0.22352941, 0.22352941, 0.22352941, 0.4745098)
+theme_override_fonts/font = ExtResource("2_4nqmc")
+theme_override_font_sizes/font_size = 64
+theme_override_styles/normal = SubResource("StyleBoxTexture_0wyvj")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_m4qq5")
+theme_override_styles/hover = SubResource("StyleBoxTexture_n1411")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_vxici")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_thf6c")
+disabled = true
+text = "9"
+
+[node name="10" type="Button" parent="CenterContainer/VBoxContainer/LevelButtons" unique_id=578001822]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
+theme_override_colors/font_focus_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
+theme_override_colors/font_pressed_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
+theme_override_colors/font_hover_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
+theme_override_colors/font_disabled_color = Color(0.22352941, 0.22352941, 0.22352941, 0.4745098)
+theme_override_fonts/font = ExtResource("2_4nqmc")
+theme_override_font_sizes/font_size = 64
+theme_override_styles/normal = SubResource("StyleBoxTexture_0wyvj")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_m4qq5")
+theme_override_styles/hover = SubResource("StyleBoxTexture_n1411")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_vxici")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_thf6c")
+disabled = true
+text = "10"
+
+[node name="11" type="Button" parent="CenterContainer/VBoxContainer/LevelButtons" unique_id=1941787281]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
+theme_override_colors/font_focus_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
+theme_override_colors/font_pressed_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
+theme_override_colors/font_hover_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
+theme_override_colors/font_disabled_color = Color(0.22352941, 0.22352941, 0.22352941, 0.4745098)
+theme_override_fonts/font = ExtResource("2_4nqmc")
+theme_override_font_sizes/font_size = 64
+theme_override_styles/normal = SubResource("StyleBoxTexture_0wyvj")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_m4qq5")
+theme_override_styles/hover = SubResource("StyleBoxTexture_n1411")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_vxici")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_thf6c")
+disabled = true
+text = "11"
+
+[node name="12" type="Button" parent="CenterContainer/VBoxContainer/LevelButtons" unique_id=2123138987]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
+theme_override_colors/font_focus_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
+theme_override_colors/font_pressed_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
+theme_override_colors/font_hover_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
+theme_override_colors/font_disabled_color = Color(0.22352941, 0.22352941, 0.22352941, 0.4745098)
+theme_override_fonts/font = ExtResource("2_4nqmc")
+theme_override_font_sizes/font_size = 64
+theme_override_styles/normal = SubResource("StyleBoxTexture_0wyvj")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_m4qq5")
+theme_override_styles/hover = SubResource("StyleBoxTexture_n1411")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_vxici")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_thf6c")
+disabled = true
+text = "12"

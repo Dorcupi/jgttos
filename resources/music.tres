@@ -1,0 +1,39 @@
+[gd_resource type="AudioStreamInteractive" format=3 uid="uid://vjf6a6ya5nj0"]
+
+[ext_resource type="AudioStream" uid="uid://dkpi6m1xvoyav" path="res://music/off.ogg" id="1_t2i5e"]
+[ext_resource type="AudioStream" uid="uid://b6xitbpg6nfjl" path="res://music/level1.ogg" id="1_wk6e6"]
+[ext_resource type="AudioStream" uid="uid://dbe86idlbo3os" path="res://music/level2.ogg" id="2_t2i5e"]
+[ext_resource type="AudioStream" uid="uid://b44wotoo2gpv" path="res://music/level3.ogg" id="3_huwt4"]
+[ext_resource type="AudioStream" uid="uid://ktlci7uu0rfo" path="res://music/level4.ogg" id="4_evs14"]
+
+[resource]
+clip_count = 5
+clip_0/name = &"Clip 0"
+clip_0/stream = ExtResource("1_t2i5e")
+clip_0/auto_advance = 0
+clip_1/name = &"Level 1"
+clip_1/stream = ExtResource("1_wk6e6")
+clip_1/auto_advance = 0
+clip_2/name = &"Level 2"
+clip_2/stream = ExtResource("2_t2i5e")
+clip_2/auto_advance = 0
+clip_3/name = &"Level 3"
+clip_3/stream = ExtResource("3_huwt4")
+clip_3/auto_advance = 0
+clip_4/name = &"Level 4"
+clip_4/stream = ExtResource("4_evs14")
+clip_4/auto_advance = 0
+_transitions = {
+Vector2i(-1, -1): {
+"fade_beats": 1.0,
+"fade_mode": 0,
+"from_time": 3,
+"to_time": 1
+},
+Vector2i(0, -1): {
+"fade_beats": 1.0,
+"fade_mode": 0,
+"from_time": 0,
+"to_time": 1
+}
+}
