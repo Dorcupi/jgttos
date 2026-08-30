@@ -121,7 +121,24 @@ func _ready() -> void:
 	if day_modulate and time_of_day is DAYTIMES and not _day_colour_set_up:
 		_setup_day_colour()
 	_setup_level_info()
+	_update_global()
 	if Global.game_controller and Global.game_controller.music_manager: Global.game_controller.music_manager.current_level = Global.game_controller.music_manager.LEVELS.LEVEL_2
+
+func _update_global() -> void:
+	await get_tree().physics_frame
+	if Global.game_controller and Global.game_controller.current_scene == self:
+		var path: String = Global.game_controller.current_scene_path
+		if not path.begins_with("uid://"):
+			path = ResourceUID.id_to_text(ResourceLoader.get_resource_uid(path))
+		if Global.LEVELS.values().has(path):
+			var current_level: int = Global.LEVELS.find_key(path)
+			print(current_level)
+			if current_level != 1:
+				if not Global.next_level == current_level and Global.completing_runthrough: Global.completing_runthrough = false
+			else:
+				if not Global.completing_runthrough:
+					Global.reset_runthrough_data()
+					Global.completing_runthrough = true
 
 func _setup_level_info() -> void:
 	if Global.game_controller:
@@ -278,7 +295,7 @@ func _request_restart(death: bool = false) -> void:
 			_restart_requested = true
 			player.active = false
 			if death:
-				Global.total_deaths += 1
+				Global.current_total_deaths += 1
 				player.die_sound_effect.play()
 				if main_camera:
 					main_camera.noise = Global.CAMERA_SHAKE
@@ -297,12 +314,18 @@ func _win_level() -> void:
 				if not Global.levels_beat.has(current_level): Global.levels_beat.append(current_level)
 				if not Global.levels_unlocked.has(current_level + 1): Global.levels_unlocked.append(current_level + 1)
 				if not Global.levels_unlocked.has(current_level): Global.levels_unlocked.append(current_level)
-				if Global.LEVELS.has(current_level + 1):
-					print("MOVING TO LEVEL %.0f" % (current_level + 1))
-					Global.game_controller.change_scene(Global.LEVELS[current_level + 1], ["chop", Color.BLACK])
+				if Global.completing_runthrough:
+					if Global.LEVELS.has(current_level + 1):
+						print("MOVING TO LEVEL %.0f" % (current_level + 1))
+						Global.next_level += 1
+						Global.game_controller.change_scene(Global.LEVELS[current_level + 1], ["chop", Color.BLACK])
+					else:
+						print("BEAT ALL LEVELS, GOING TO YOU WIN SCREEN")
+						Global.update()
+						Global.game_controller.change_scene(Global.SCENES.you_win, ["chop", Color.BLACK], true, false, true)
 				else:
-					print("BEAT ALL LEVELS, RESTARTING")
-					Global.game_controller.change_scene(Global.LEVELS[1], ["chop", Color.BLACK])
+					print("GOING BACK TO LEVEL SELECT")
+					Global.game_controller.change_scene(Global.SCENES.level_select, ["chop", Color.BLACK], true, false, true)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -314,6 +337,7 @@ func _process(delta: float) -> void:
 				if data.get_custom_data("is_water") and death_to_water:
 					_request_restart(true)
 	if player and _fake_camera_player and main_camera: _update_fake_player_position()
+	if player and player.active: Global.current_time_taken += delta
 
 func _update_fake_player_position() -> void:
 	if _moving_camera_up:
