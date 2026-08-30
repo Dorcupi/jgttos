@@ -9,6 +9,7 @@ var _opening_level: bool = false
 func _ready() -> void:
 	animation_player.play("loop")
 	_setup_buttons()
+	Global.game_controller.music_manager.current_level = Global.game_controller.music_manager.LEVELS.LEVEL_3
 
 func _setup_buttons() -> void:
 	for i in level_buttons.get_children():

@@ -41,7 +41,7 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
-size = Vector2(18, 36)
+size = Vector2(14, 36)
 
 [node name="Flag" type="Node2D" unique_id=299157959]
 script = ExtResource("1_vdtgd")

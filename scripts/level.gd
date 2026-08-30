@@ -296,6 +296,7 @@ func _win_level() -> void:
 				var current_level: int = Global.LEVELS.find_key(path)
 				if not Global.levels_beat.has(current_level): Global.levels_beat.append(current_level)
 				if not Global.levels_unlocked.has(current_level + 1): Global.levels_unlocked.append(current_level + 1)
+				if not Global.levels_unlocked.has(current_level): Global.levels_unlocked.append(current_level)
 				if Global.LEVELS.has(current_level + 1):
 					print("MOVING TO LEVEL %.0f" % (current_level + 1))
 					Global.game_controller.change_scene(Global.LEVELS[current_level + 1], ["chop", Color.BLACK])

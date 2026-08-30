@@ -12,6 +12,14 @@ const LEVELS: Dictionary[int, String] = {
 	2: "uid://8tsikr5vdynw",
 	3: "uid://c8x8seny7pxjr",
 	4: "uid://0ybof5jwjywc",
+	5: "uid://d0e4n5itwgc5i",
+	6: "uid://53i72iuty123",
+	7: "uid://bbu2kjf3vkvbb",
+	8: "uid://6m7s35ghcbcq",
+	9: "uid://npwrraoyhbyw",
+	10: "uid://bubuki0fehnic",
+	11: "uid://7lvkcfoxli3r",
+	12: "uid://bib06i2pk8bgp"
 }
 
 const UNPAUSABLE_SCENES: Array[String] = [
