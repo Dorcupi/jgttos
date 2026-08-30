@@ -285,10 +285,6 @@ func _on_player_leave_screen() -> void:
 			player.pass_screen_sound_effect.play()
 			# player.global_position.x = wrapf(current_player_position.x, level_bounding_box.to_global(level_bounding_box.shape.get_rect().position).x - 32, level_bounding_box.to_global(level_bounding_box.shape.get_rect().position).x + 32)
 
-func _unhandled_key_input(event: InputEvent) -> void:
-	if event.is_action_pressed("debug"):
-		_request_restart()
-
 func _request_restart(death: bool = false) -> void:
 	if not _restart_requested and not _won_level:
 		if Global.game_controller and Global.game_controller.current_scene == self:

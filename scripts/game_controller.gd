@@ -196,6 +196,9 @@ func _input(event: InputEvent) -> void:
 					quit_game_button.pressed.connect(unpause_quit)
 					get_tree().paused = true
 		else: unpause_game()
+	elif event.is_action_pressed("debug"):
+		if OS.is_debug_build():
+			Screenshots.take_burst()
 
 func unpause_quit() -> void:
 	if unpause_game(): get_tree().quit()

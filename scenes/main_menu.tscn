@@ -246,23 +246,6 @@ theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_7b55j")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_5pajh")
 text = "QUIT GAME?"
 
-[node name="SettingsButton" type="Button" parent="Menu/VBoxContainer/MarginContainer/VBoxContainer" unique_id=867770329]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
-theme_override_colors/font_focus_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
-theme_override_colors/font_pressed_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
-theme_override_colors/font_hover_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
-theme_override_colors/font_disabled_color = Color(0.22352941, 0.22352941, 0.22352941, 0.4745098)
-theme_override_fonts/font = ExtResource("3_wu84c")
-theme_override_font_sizes/font_size = 32
-theme_override_styles/normal = SubResource("StyleBoxTexture_flqon")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_rcqid")
-theme_override_styles/hover = SubResource("StyleBoxTexture_1ajci")
-theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_7b55j")
-theme_override_styles/disabled = SubResource("StyleBoxTexture_5pajh")
-text = "SETTINGS"
-
 [node name="QuitButton" type="Button" parent="Menu/VBoxContainer/MarginContainer/VBoxContainer" unique_id=2123727404]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
